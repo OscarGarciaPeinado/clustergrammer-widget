@@ -8,6 +8,7 @@ def df_to_dat(net, df):
     net.dat['mat'] = f_get_float_value(df['mat'].values)
     net.dat['nodes']['row'] = df['mat'].index.tolist()
     net.dat['nodes']['col'] = df['mat'].columns.tolist()
+    net.dat['highlight'] = get_highlight_items_coordinates(df['mat'].values)
 
     for inst_rc in ['row', 'col']:
 
@@ -34,7 +35,14 @@ def df_to_dat(net, df):
 
     categories.dict_cat(net)
 
-    pdb.set_trace()
+
+def get_highlight_items_coordinates(values):
+    import numpy as np
+    highlight = []
+    for index, value in np.ndenumerate(values):
+        if isinstance(value, basestring) and value.startswith('(') and value.endswith(')'):
+            highlight.append(index)
+    return highlight
 
 
 def get_float_from_string(value):
