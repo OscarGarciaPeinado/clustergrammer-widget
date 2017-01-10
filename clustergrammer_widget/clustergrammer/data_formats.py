@@ -45,8 +45,14 @@ def get_highlight_items_coordinates(values):
 
 
 def get_float_from_string(value):
+    import re
+    numbre_from_string_regex = re.compile(r"[+-]?\d+(?:\.\d+)?")
     if isinstance(value, basestring):
-        return float(value[value.find("(") + 1:value.find(")")])
+        string_value = numbre_from_string_regex.search(value).group(0)
+        try:
+            return int(string_value)
+        except ValueError:
+            return float(string_value)
     return value
 
 
