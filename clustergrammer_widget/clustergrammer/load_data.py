@@ -45,6 +45,7 @@ def load_tsv_to_net(net, file_buffer, filename=None):
   net.df_to_dat(tmp_df)
   net.dat['filename'] = filename
 
+
 def load_json_to_dict(filename):
   import json
   f = open(filename, 'r')

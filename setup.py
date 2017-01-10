@@ -14,18 +14,21 @@ is_repo = os.path.exists(os.path.join(here, '.git'))
 
 npm_path = os.pathsep.join([
     os.path.join(node_root, 'node_modules', '.bin'),
-                os.environ.get('PATH', os.defpath),
+    os.environ.get('PATH', os.defpath),
 ])
 
 from distutils import log
+
 log.set_verbosity(log.DEBUG)
 log.info('setup.py entered')
 log.info('$PATH=%s' % os.environ['PATH'])
 
 LONG_DESCRIPTION = 'clustergrammer_widget'
 
+
 def js_prerelease(command, strict=False):
     """decorator for building minified js/css prior to another command"""
+
     class DecoratedCommand(command):
         def run(self):
             jsdeps = self.distribution.get_command_obj('jsdeps')
@@ -48,7 +51,9 @@ def js_prerelease(command, strict=False):
                     log.warn(str(e))
             command.run(self)
             update_package_data(self.distribution)
+
     return DecoratedCommand
+
 
 def update_package_data(distribution):
     """update package_data to catch changes during setup"""
@@ -91,7 +96,8 @@ class NPM(Command):
     def run(self):
         has_npm = self.has_npm()
         if not has_npm:
-            log.error("`npm` unavailable.  If you're running this command using sudo, make sure `npm` is available to sudo")
+            log.error(
+                "`npm` unavailable.  If you're running this command using sudo, make sure `npm` is available to sudo")
 
         env = os.environ.copy()
         env['PATH'] = npm_path
@@ -111,9 +117,10 @@ class NPM(Command):
         # update package data in case this created new files
         update_package_data(self.distribution)
 
+
 version_ns = {}
 with open(os.path.join(here, 'clustergrammer_widget', '_version.py')) as f:
-    exec(f.read(), {}, version_ns)
+    exec (f.read(), {}, version_ns)
 
 setup_args = {
     'name': 'clustergrammer_widget',
@@ -163,4 +170,4 @@ setup_args = {
     ],
 }
 
-setup(**setup_args)
+setup(**setup_args, install_requires=['numpy'])
