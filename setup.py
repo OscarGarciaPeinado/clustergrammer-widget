@@ -170,4 +170,4 @@ setup_args = {
     ],
 }
 
-setup(**setup_args, install_requires=['numpy'])
+setup(install_requires=['numpy'], **setup_args)
