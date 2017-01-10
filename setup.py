@@ -137,6 +137,7 @@ setup_args = {
     ],
     'install_requires': [
         'ipywidgets>=5.1.5',
+        'numpy'
     ],
     'packages': find_packages(),
     'zip_safe': False,
@@ -170,4 +171,4 @@ setup_args = {
     ],
 }
 
-setup(install_requires=['numpy'], **setup_args)
+setup(**setup_args)
