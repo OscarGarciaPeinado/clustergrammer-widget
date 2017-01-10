@@ -1,5 +1,4 @@
 def df_to_dat(net, df):
-    import pdb
     from . import categories
     import numpy as np
 
@@ -8,7 +7,6 @@ def df_to_dat(net, df):
     net.dat['mat'] = f_get_float_value(df['mat'].values)
     net.dat['nodes']['row'] = df['mat'].index.tolist()
     net.dat['nodes']['col'] = df['mat'].columns.tolist()
-    net.dat['highlight'] = get_highlight_items_coordinates(df['mat'].values)
 
     for inst_rc in ['row', 'col']:
 
@@ -33,6 +31,7 @@ def df_to_dat(net, df):
     if 'mat_orig' in df:
         net.dat['mat_orig'] = df['mat_orig'].values
 
+    net.dat['highlight'] = get_highlight_items_coordinates(df['mat'].values)
     categories.dict_cat(net)
 
 
